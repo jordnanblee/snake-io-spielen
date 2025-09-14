@@ -68,7 +68,7 @@
         .logo {
             font-size: 28px;
             font-weight: bold;
-            background: linear-gradient(45deg, #00d4ff, #7c3aed);
+            background: linear-gradient(45deg, #3f25a7, #7c3aed);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-decoration: none;
@@ -578,6 +578,34 @@
     </footer>
 
     <script>
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            mobileNav.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            
+            mobileNav.classList.remove('active');
+            toggle.classList.remove('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileNav = document.getElementById('mobileNav');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            const header = document.querySelector('header');
+            
+            if (!header.contains(e.target) && mobileNav.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
         // Fullscreen functionality
         function toggleFullscreen() {
             const gameContainer = document.getElementById('gameContainer');
@@ -683,6 +711,6 @@
         // Create particles periodically
         setInterval(createParticle, 500);
     </script>
-  <script src="https://cdn.counter.dev/script.js" data-id="765b5d93-838f-4789-a97e-d18e533d9baf" data-utcoffset="3"></script>
+    <script src="https://cdn.counter.dev/script.js" data-id="765b5d93-838f-4789-a97e-d18e533d9baf" data-utcoffset="3"></script>
 </body>
 </html>

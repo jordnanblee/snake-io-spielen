@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake.io Spielen - Das Beste Online Snake Spiel</title>
+    <meta name="description" content="Spiele Snake.io kostenlos online! Das klassische Snake-Spiel in moderner Form. Keine Downloads erforderlich, direkt im Browser spielen. Werde zur längsten Schlange!">
+    <meta name="keywords" content="snake io spielen, snake spiel, online snake, schlangen spiel, browser spiel, kostenlos spielen">
+    <meta name="author" content="Snake.io Spielen">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jordnanblee.github.io/snake-io-spielen/">
+    <meta property="og:title" content="Snake.io Spielen - Das Beste Online Snake Spiel">
+    <meta property="og:description" content="Spiele Snake.io kostenlos online! Das klassische Snake-Spiel in moderner Form. Keine Downloads erforderlich.">
+    <meta property="og:image" content="https://jordnanblee.github.io/snake-io-spielen/snake-preview.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://jordnanblee.github.io/snake-io-spielen/">
+    <meta property="twitter:title" content="Snake.io Spielen - Das Beste Online Snake Spiel">
+    <meta property="twitter:description" content="Spiele Snake.io kostenlos online! Das klassische Snake-Spiel in moderner Form.">
+
+    <!-- Favicon SVG -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0idXJsKCNncmFkaWVudDApIi8+CjxwYXRoIGQ9Ik04IDE2QzggMTMuNzkwOSA5Ljc5MDg2IDEyIDEyIDEySDIwQzIyLjIwOTEgMTIgMjQgMTMuNzkwOSAyNCAxNkMyNCAxOC4yMDkxIDIyLjIwOTEgMjAgMjAgMjBIMTZWMjRIMjBDMjQuNDE4MyAyNCAyOCAyMC40MTgzIDI4IDE2QzI4IDExLjU4MTcgMjQuNDE4MyA4IDIwIDhIMTJDNy41ODE3MiA4IDQgMTEuNTgxNyA0IDE2QzQgMjAuNDE4MyA3LjU4MTcyIDI0IDEyIDI0SDE2VjIwSDEyQzEwIDIwIDggMTggOCAxNloiIGZpbGw9IndoaXRlIi8+CjxjaXJjbGUgY3g9IjIwIiBjeT0iMTQiIHI9IjIiIGZpbGw9IndoaXRlIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MCIgeDE9IjAiIHkxPSIwIiB4Mj0iMzIiIHkyPSIzMiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjMDA3Q0Y3Ii8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAwREZGRiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo=">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00d4ff, #ffffff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(45deg, #00d4ff, #7c3aed);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Game Section */
+        .game-section {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            margin: 40px 0;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .game-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+        }
+
+        .fullscreen-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(0, 212, 255, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Ad Block - Only for PC */
+        .ad-container {
+            text-align: center;
+            margin: 40px 0;
+            display: none;
+        }
+
+        .ad-block {
+            width: 728px;
+            height: 90px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            margin: 0 auto;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            background: linear-gradient(45deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #00d4ff;
+        }
+
+        /* SEO Text Section */
+        .seo-content {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            margin: 40px 0;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .seo-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(45deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .seo-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 40px rgba(124, 58, 237, 0.8);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .ad-container {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            .game-container {
+                height: 400px;
+            }
+
+            .fullscreen-btn {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .cta-button {
+                padding: 15px 35px;
+                font-size: 1rem;
+            }
+
+            .game-container {
+                height: 300px;
+            }
+        }
+
+        /* Fullscreen styles */
+        .fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 9999 !important;
+            border-radius: 0 !important;
+        }
+
+        .fullscreen .game-iframe {
+            border-radius: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">🐍 Snake.io</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#spiel">Spiel</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#info">Info</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Snake.io Spielen</h1>
+                    <p>Das ultimative Online-Schlangen-Erlebnis wartet auf dich!</p>
+                    <a href="#spiel" class="cta-button">Jetzt Spielen 🚀</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad Block for PC -->
+        <div class="ad-container">
+            <div class="ad-block">
+                🎮 Werbung - 728x90 Banner für Desktop
+            </div>
+        </div>
+
+        <section id="spiel" class="game-section">
+            <div class="container">
+                <div class="game-container" id="gameContainer">
+                    <button class="fullscreen-btn" onclick="toggleFullscreen()">
+                        ⛶ Vollbild
+                    </button>
+                    <iframe 
+                        class="game-iframe" 
+                        id="gameIframe"
+                        src="https://google-snake-game.pages.dev/snake-game" 
+                        title="Snake.io Spiel"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Warum Snake.io?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">🎯</span>
+                        <h3>Einfach zu Spielen</h3>
+                        <p>Intuitive Steuerung, die jeder sofort versteht. Bewege deine Schlange und sammle Punkte!</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🚀</span>
+                        <h3>Sofort Spielbar</h3>
+                        <p>Keine Downloads, keine Installation. Klicke und spiele direkt im Browser!</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🎮</span>
+                        <h3>Modernes Design</h3>
+                        <p>Klassisches Gameplay trifft auf moderne Grafiken und flüssige Animationen.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📱</span>
+                        <h3>Vollständig Responsiv</h3>
+                        <p>Spiele auf jedem Gerät - Desktop, Tablet oder Smartphone.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🏆</span>
+                        <h3>Hochscore System</h3>
+                        <p>Verfolge deine Fortschritte und versuche, deine Bestleistung zu übertreffen!</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">⚡</span>
+                        <h3>Blitzschnell</h3>
+                        <p>Optimierte Performance für ein reibungsloses Spielerlebnis ohne Verzögerungen.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="info" class="seo-content">
+            <div class="container">
+                <h2>Über Snake.io - Das Kultspiel neu erfunden</h2>
+                <p>
+                    <strong>Snake.io spielen</strong> bringt das legendäre Schlangen-Spiel in die moderne Zeit. Seit den ersten Handys ist Snake ein absoluter Klassiker, der Millionen von Spielern weltweit begeistert hat. Unsere Version kombiniert die nostalgische Einfachheit des Originals mit zeitgemäßen Features und einer atemberaubenden visuellen Darstellung.
+                </p>
+                
+                <p>
+                    Das Spielprinzip ist denkbar einfach, aber unglaublich fesselnd: Steuere deine Schlange durch das Spielfeld, sammle Nahrung und wachse kontinuierlich. Je länger deine Schlange wird, desto mehr Punkte erhältst du, aber gleichzeitig wird das Spiel auch anspruchsvoller. Die Herausforderung liegt darin, nicht mit den Wänden oder dem eigenen Schwanz zu kollidieren.
+                </p>
+
+                <p>
+                    <strong>Warum ist Snake.io so beliebt?</strong> Die Antwort liegt in der perfekten Balance zwischen Einfachheit und Herausforderung. Jeder kann innerhalb von Sekunden lernen, wie man spielt, aber es braucht Geschick und Strategie, um wirklich gut zu werden. Das macht Snake.io zum idealen Spiel für kurze Pausen ebenso wie für längere Gaming-Sessions.
+                </p>
+
+                <p>
+                    Unser <strong>Online Snake Spiel</strong> ist vollständig kostenlos und erfordert keine Registrierung oder Downloads. Einfach die Seite öffnen und sofort losspielen! Die responsive Gestaltung sorgt dafür, dass du auf allen Geräten das gleiche hochwertige Spielerlebnis genießt - egal ob auf dem Desktop-Computer, Tablet oder Smartphone.
+                </p>
+
+                <p>
+                    Die moderne Grafik und die flüssigen Animationen machen jede Runde zu einem visuellen Vergnügen. Trotz der zeitgemäßen Optik bleibt der charakteristische Retro-Charme erhalten, der Snake zu einem zeitlosen Klassiker macht. Zusätzliche Features wie das Vollbild-Modus und die optimierte Touch-Steuerung für mobile Geräte runden das Paket ab.
+                </p>
+
+                <p>
+                    <strong>Snake.io online spielen</strong> ist mehr als nur ein Zeitvertreib - es ist eine Reise zurück zu den Wurzeln des Gaming, gepaart mit allem Komfort moderner Webtechnologie. Egal ob du ein Veteran der ursprünglichen Snake-Spiele bist oder das Spiel zum ersten Mal entdeckst, du wirst schnell verstehen, warum dieses einfache Konzept Generationen von Spielern fasziniert hat.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Snake.io Spielen. Alle Rechte vorbehalten.</p>
+            <p>Das ultimative Online Snake Erlebnis für alle Geräte.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Fullscreen functionality
+        function toggleFullscreen() {
+            const gameContainer = document.getElementById('gameContainer');
+            const fullscreenBtn = document.querySelector('.fullscreen-btn');
+            
+            if (!gameContainer.classList.contains('fullscreen')) {
+                gameContainer.classList.add('fullscreen');
+                fullscreenBtn.textContent = '⛶ Schließen';
+                
+                // Try to enter fullscreen mode
+                if (gameContainer.requestFullscreen) {
+                    gameContainer.requestFullscreen();
+                } else if (gameContainer.webkitRequestFullscreen) {
+                    gameContainer.webkitRequestFullscreen();
+                } else if (gameContainer.msRequestFullscreen) {
+                    gameContainer.msRequestFullscreen();
+                }
+            } else {
+                gameContainer.classList.remove('fullscreen');
+                fullscreenBtn.textContent = '⛶ Vollbild';
+                
+                // Exit fullscreen mode
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        // Listen for fullscreen changes
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('msfullscreenchange', handleFullscreenChange);
+
+        function handleFullscreenChange() {
+            const gameContainer = document.getElementById('gameContainer');
+            const fullscreenBtn = document.querySelector('.fullscreen-btn');
+            
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                gameContainer.classList.remove('fullscreen');
+                fullscreenBtn.textContent = '⛶ Vollbild';
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation for iframe
+        const iframe = document.getElementById('gameIframe');
+        iframe.addEventListener('load', function() {
+            this.style.opacity = '1';
+        });
+
+        // Add some interactive particles background
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: rgba(0, 212, 255, 0.6);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1;
+                left: ${Math.random() * 100}vw;
+                top: 100vh;
+                animation: floatUp 8s linear infinite;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 8000);
+        }
+
+        // Add CSS for particle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                to {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Create particles periodically
+        setInterval(createParticle, 500);
+    </script>
+  <script src="https://cdn.counter.dev/script.js" data-id="765b5d93-838f-4789-a97e-d18e533d9baf" data-utcoffset="3"></script>
+</body>
+</html>
